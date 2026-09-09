@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "dms": {
+      "command": "npx",
+      "args": ["-y", "@your-org/dms-mcp-server", "--db-url", "${DMS_DATABASE_URL}"],
+      "env": { "API_KEY": "${DMS_API_KEY}" }
+    },
+    "vector-db": {
+      "type": "http",
+      "url": "${VECTOR_DB_MCP_URL}",
+      "headers": { "Authorization": "Bearer ${VECTOR_DB_TOKEN}" }
+    }
+  }
+}
