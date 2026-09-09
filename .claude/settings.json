@@ -1,0 +1,48 @@
+{
+  "permissions": {
+    "defaultMode": "dontAsk"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": null,
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/audit-log.sh" }
+        ]
+      },
+      {
+        "matcher": "redline-miner|question-architect",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/schema-validate.sh" }
+        ]
+      },
+      {
+        "matcher": "question-architect",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/question-tree-diff.sh" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/contract-write-gate.sh" }
+        ]
+      },
+      {
+        "matcher": "mcp__dms__post_comment|mcp__email__send",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/send-gate.sh" }
+        ]
+      }
+    ]
+  },
+  "agents": {
+    "redline-miner": { "permissionMode": "dontAsk" },
+    "playbook-author": { "permissionMode": "plan" },
+    "question-architect": { "permissionMode": "plan" },
+    "comment-reader": { "permissionMode": "acceptEdits" },
+    "boilerplate-filter": { "permissionMode": "dontAsk" }
+  }
+}
